@@ -28,17 +28,17 @@ namespace HW
             List<Computers> computers1 = listCoputers.Where(x=>x.Processor == processor).ToList();
             Console.WriteLine("Все компьютеры с указанным процессором ");
             Print(computers1);
-
+            Console.WriteLine();
             Console.WriteLine("Введите ОЗУ");                                                        //все компьютеры с объемом ОЗУ не ниже, чем указано
             int ram = Convert.ToInt32(Console.ReadLine());
             List<Computers> computers2 = listCoputers.Where(x => x.RAM >= ram).ToList();
             Console.WriteLine("Все компьютеры с объемом ОЗУ не ниже чем указано ");
             Print(computers2);
-
+            Console.WriteLine();
             List<Computers> computers3 = listCoputers.OrderBy(x => x.Price).ToList();                    //вывести весь список, отсортированный по увеличению стоимости
             Console.WriteLine("Сортировка по стоимости: ");
             Print(computers3);
-
+            Console.WriteLine();
             Console.WriteLine("Группировка по марке процессора: ");
             IEnumerable<IGrouping<string, Computers>> computers4 = listCoputers.GroupBy(x => x.Processor);   //группировка по процессорам 
             foreach (IGrouping<string, Computers> gr in computers4)
@@ -49,23 +49,22 @@ namespace HW
                     Console.WriteLine($"{c.Id} {c.Stamp} {c.Processor} {c.Frequency} {c.RAM} {c.Hard_disk_memory} {c.Video_card_memory} {c.Price} {c.Availability}");
                 }
             }
-
+            Console.WriteLine();
             Console.WriteLine("Поиск самого дорогого компьютера: ");
-            Computers computers5 = listCoputers.OrderBy(с => с.Price).FirstOrDefault();        //найти самый дорогой комп
+            Computers computers5 = listCoputers.OrderByDescending(с => с.Price).FirstOrDefault();        //найти самый дорогой комп
             Console.WriteLine($"{computers5.Id} {computers5.Stamp} {computers5.Processor} {computers5.Frequency} {computers5.RAM} {computers5.Hard_disk_memory} {computers5.Video_card_memory} {computers5.Price} {computers5.Availability}");
-
+            Console.WriteLine();
             Console.WriteLine("Поиск самого дешового компьютера: ");
-            Computers computers6 = listCoputers.OrderByDescending(с => с.Price).FirstOrDefault();        //найти самый бюджетный комп
-            Console.WriteLine($"{computers5.Id} {computers5.Stamp} {computers5.Processor} {computers5.Frequency} {computers5.RAM} {computers5.Hard_disk_memory} {computers5.Video_card_memory} {computers5.Price} {computers5.Availability}");
-
+            Computers computers6 = listCoputers.OrderBy(с => с.Price).FirstOrDefault();        //найти самый бюджетный комп
+            Console.WriteLine($"{computers6.Id} {computers6.Stamp} {computers6.Processor} {computers6.Frequency} {computers6.RAM} {computers6.Hard_disk_memory} {computers6.Video_card_memory} {computers6.Price} {computers6.Availability}");
+            Console.WriteLine();
             Console.WriteLine("Есть ли хотя бы один компьютер в количестве не менее 30 штук?");
-            if(listCoputers.Any(x => x.Availability > 200))
+            if(listCoputers.Any(x => x.Availability > 30))
             {
                 Console.WriteLine("Да есть");
             }
             else
-                Console.WriteLine("Нет");
-            Console.WriteLine(listCoputers.Any(x => x.Availability > 200));                                   //есть ли хотя бы один компьютер в количестве не менее 30 штук?
+                Console.WriteLine("Нет");                              //есть ли хотя бы один компьютер в количестве не менее 30 штук?
             Console.ReadKey();
         }
         static void Print(List<Computers> computers)
